@@ -1,0 +1,14 @@
+{
+  "name": "backbone-demo",
+  "version": "1.0.0",
+  "description": "mvc demos",
+  "main": "index.html ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backbone"
+  ],
+  "author": "dukehui1991@gmail.com",
+  "license": "ISC"
+}
