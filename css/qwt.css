@@ -1,0 +1,21 @@
+/*qwt.css*/
+body{
+	margin: 40px auto;
+}
+h3{
+	font-size: 2rem;
+}
+p{
+	font-size: 16px;
+}
+.f20{
+	font-size: 16px;
+	color: red;
+}
+.event{
+	padding: 20px;
+}
+.event input{
+	width: 100px;
+	height: 50px;
+}
