@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="name" content="content">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>qwt html</title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/qwt.css">
+</head>
+<body>
+	<h3>test backbone</h3>
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
+
+<script type="text/javascript">
+// 自定义事件 对于所有的改变都将出发change事件
+	var M = Backbone.Model.extend({
+		defaults:{
+			name:"hello"
+		},
+		initialize: function(){
+			this.on('change',function(){
+				console.log('change message');
+			})
+		}
+	})
+
+	var m = new M;
+	m.set('name','hi');
+
+// 对于指定的时间进行改变
+	var M2 = Backbone.Model.extend({
+		defaults:{
+			name:"hello"
+		},
+		initialize: function(){
+			this.on('change:name',function(model){
+				console.log(model);
+			})
+		}
+	})
+
+	var m2 = new M2;
+	m2.set('name','hi');
+
+// 视图和模型进行联系起来
+
+var M3 = Backbone.Model.extend({
+	defaults:{
+		name:"pre value"
+	}
+});
+
+var V3 = Backbone.View.extend({
+	initialize: function(){
+		this.listenTo(this.model,'change',this.show);
+	},
+	show: function(model){
+		$('body').append('<div class= "f20">' + model.get('name')+ '</div>')
+	}
+})
+
+	var m3 = new M3;
+	var v3 = new V3({model:m3});
+	m3.set('name','hi');
+
+
+
+
+</script>
+
+</body>
+</html>

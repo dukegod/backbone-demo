@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="name" content="content">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>qwt html</title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/qwt.css">
+</head>
+<body>
+
+<p>事件委托</p>
+
+<div class="event">
+	<input type="button" value="1" />
+	<ul class= "list-group">
+		<li class="list-group-item">1111</li>
+		<li class="list-group-item">1111</li>
+		<li class="list-group-item">1111</li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
+
+<script type="text/javascript">
+	
+	var V = Backbone.View.extend({
+		el: $('body'),
+		events:{
+
+			'click input': 'cinput',
+			'mouseover li': 'mli'
+			
+		},
+		cinput: function(){
+			console.log('cinput message');
+		},
+		mli: function(){
+			console.log('mouseover msg')
+		}
+		
+	});
+
+	var v = new V;
+
+
+</script>
+
+</body>
+</html>

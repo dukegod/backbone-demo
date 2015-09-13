@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="name" content="content">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>qwt html</title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/qwt.css">
+</head>
+<body>
+	
+	<p>test server </p>
+
+
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
+
+<script type="text/javascript">
+	// send values to server 
+	// Backbone.sync= function(method,model){
+	// 	console.log(method + ":" +JSON.stringify(model));
+	// 	model.id= 1;
+	// }
+	
+	// var M = Backbone.Model.extend({
+	// 	defaults: {
+	// 		name: 'pre value'
+	// 	},
+	// 	url: '/user'
+	// });
+
+	// var m = new M;
+	// m.save();
+	// m.save({'name':'hi'});
+
+	// fetch  values to server 
+	Backbone.sync= function(method,model){
+		console.log(method + ":" +JSON.stringify(model));
+	}
+	
+	var C = Backbone.Collection.extend({
+		initialize: function(){
+			console.log(this);
+			this.on('reset',function(){
+				console.log('reset message');
+			})
+		},
+		url: '/users'
+	});
+
+	var c = new C;
+	// fetch value
+	c.fetch();
+
+
+</script>
+
+</body>
+</html>
