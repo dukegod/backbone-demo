@@ -4,68 +4,37 @@
 	<meta charset="utf-8">
 	<meta name="name" content="content">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>qwt html</title>
+	<title>blog roll</title>
 	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../css/qwt.css">
 </head>
 <body>
+
+<div class="container">
+	<h1>bockbone tutotial</h1>
+
+	<table class= "table">
+		<thead>
+			<tr>
+				<th>Author</th>
+				<th>Title</th>
+				<th>URL</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
-
-<script type="text/javascript">
-	var M = Backbone.Model.extend(
-		{
-			// 实例方法
-			init:function(){
-				console.log('msg init');
-			}
-		},
-		{
-			// 静态方法,不需要实例化，直接调用
-			be:function(){
-				console.log('msg bb')
-			}
-		}
-	);
-
-	var m = new M;
-	m.init();
-	M.be();
-
-  var M2 = Backbone.Model.extend({
-  	defaults:{
-  		name: 'hello world'
-  	}
-  })
-  var m2 = new M2;
-  console.log(m2.get('name'));
-
-
-  // backbone inherit method 
-  // 数据实例下，就可以调用了
-  var bigM = M2.extend();
-  var bigm = new bigM;
-	console.log(bigm.get('name'));
-
-
-
-	var biggM = M2.extend({
-		add:function(){
-			console.log('add function ');
-		}
-	})
-	var biggm = new biggM;
-	biggm.add();
-
-
-
-
-
-
-
-</script>
+<script src="script.js" type="text/javascript" ></script>
 
 </body>
 </html>

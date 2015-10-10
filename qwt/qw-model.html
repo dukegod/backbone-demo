@@ -15,57 +15,42 @@
 <script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
 
 <script type="text/javascript">
-	var M = Backbone.Model.extend(
-		{
-			// 实例方法
-			init:function(){
-				console.log('msg init');
-			}
-		},
-		{
-			// 静态方法,不需要实例化，直接调用
-			be:function(){
-				console.log('msg bb')
-			}
+	var M = Backbone.Model.extend({
+		defaults:{
+			'name' : 'dukegod',
+			'age'  : 18,
+			'address' : 'anhuisuzhou'
 		}
-	);
+	});
+	
+	var V = Backbone.View.extend({
 
-	var m = new M;
-	m.init();
-	M.be();
+	  tagName: "li",
+	
+	  events: {
+	    "click .icon":          "open",
+	    "click .button.edit":   "openEditDialog",
+	    "click .button.delete": "destroy"
+	  },
+	
+	  initialize: function() {
+	    this.listenTo(this.model, "change", this.render);
+	  },
+		template: _.template($('body').html()),
+		
+	  render: function() {
+	    this.$el.html(this.template(this.model.toJSON()));
+	  }
+	
+	});
 
-  var M2 = Backbone.Model.extend({
-  	defaults:{
-  		name: 'hello world'
-  	}
-  })
-  var m2 = new M2;
-  console.log(m2.get('name'));
+  var m = new M;
+  var v = new V({model:m});
 
-
-  // backbone inherit method 
-  // 数据实例下，就可以调用了
-  var bigM = M2.extend();
-  var bigm = new bigM;
-	console.log(bigm.get('name'));
-
-
-
-	var biggM = M2.extend({
-		add:function(){
-			console.log('add function ');
-		}
-	})
-	var biggm = new biggM;
-	biggm.add();
-
-
-
-
-
-
-
+ 
 </script>
 
 </body>
 </html>
+
+
