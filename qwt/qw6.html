@@ -38,13 +38,14 @@ var M3 = Backbone.Model.extend({
 });
 
 var V3 = Backbone.View.extend({
+	template: _.template($('#template').html()),
 	initialize: function(){
 		this.listenTo(this.model,'change',this.show);
+		console.log(this);
 	},
 	show: function(model){
 		$('body').append( this.template(this.model.toJSON()));
-	},
-	template: _.template($('#template').html())
+	}
 })
 
 var m3 = new M3;

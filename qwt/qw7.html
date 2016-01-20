@@ -12,12 +12,7 @@
 
 <p>事件委托</p>
 
-<div class="event">
-	<input type="button" value="1" />
-	<ul class= "list-group">
-		<li class="list-group-item">1111</li>
-	</ul>
-</div>
+
 
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -26,22 +21,21 @@
 
 <script type="text/javascript">
 	
-	var V = Backbone.View.extend({
-		el: $('body'),
-		events:{
-			'click input': 'cinput',
-			'mouseover li': 'mli'
-		},
-		cinput: function(){
-			alert('click message')
-		},
-		mli: function(){
-			alert('mouseover msg');
-		}
-		
-	});
+var DocumentRow = Backbone.View.extend({
 
-	var v = new V;
+  tagName: "li",
+
+  className: "document-row",
+
+  events: {
+    "click .icon":          "open",
+    "click .button.edit":   "openEditDialog",
+    "click .button.delete": "destroy"
+  }
+
+});
+
+var documentrow = new DocumentRow();
 
 
 </script>

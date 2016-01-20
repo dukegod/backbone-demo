@@ -9,16 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="../css/qwt.css">
 </head>
 <body>
-
-<p>事件委托</p>
-
-<div class="event">
-	<input type="button" value="1" />
-	<ul class= "list-group">
-		<li class="list-group-item">1111</li>
-	</ul>
-</div>
-
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
@@ -26,25 +16,47 @@
 
 <script type="text/javascript">
 	
-	var V = Backbone.View.extend({
-		el: $('body'),
-		events:{
-			'click input': 'cinput',
-			'mouseover li': 'mli'
+	var Person = Backbone.Model.extend({
+		initialize: function(){
+			// console.log('initial');
+			// this.on('change', function(){
+			// 	console.log('change all');
+			// });
+			this.on('change:name', function(){
+				console.log('change name is going');
+			});
+		  this.on("invalid", function(model, error) {
+			  console.log(model.get("name") + " :::" + error);
+			})
 		},
-		cinput: function(){
-			alert('click message')
+		defaults: {
+			name:    '',
+			height:  188
 		},
-		mli: function(){
-			alert('mouseover msg');
+		validate: function( attr, options){
+			// console.log('attr.name'+attr.name);
+			if(attr.name == ''){
+				return '不能为空';
+			};
 		}
-		
-	});
+	})
 
-	var v = new V;
+	var person = new Person();
+	// person.set('name','',{'validate':true});
+
+	// person.set('name','');
+	// person.isValid();
+
+	//  save
+	person.save('name','');
+
+	// console.log(person.toJSON());
+	// console.log(person.attributes);
 
 
 </script>
 
 </body>
 </html>
+
+
