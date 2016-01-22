@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
+	<script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
+	<title>the5fire.com-backbone.js-Hello World</title>
+</head>
+<body>
+
+	/* 案例1 */
+	<button id="check">报到</button>
+	<ul id="world-list">
+	</ul>
+
+	<script>
+		World = Backbone.Model.extend({
+		//创建一个World的对象，拥有name属性
+			name: null
+		});
+
+		Worlds = Backbone.Collection.extend({
+			//World对象的集合
+			initialize: function (models, options) {
+				this.bind("add", options.view.addOneWorld);
+			}
+		});
+
+		AppView = Backbone.View.extend({
+			el: $("body"),
+			initialize: function () {
+			//构造函数，实例化一个World集合类，并且以字典方式传入AppView的对象
+				this.worlds = new Worlds(null, { view : this })
+			},
+			events: {
+				"click #check": "checkIn", //事件绑定，绑定Dom中id为check的元素
+			},
+			checkIn: function () {
+				var world_name = prompt("请问，您是哪星人?");
+				if(world_name == "") world_name = '未知';
+				var world = new World({ name: world_name });
+				this.worlds.add(world);
+			},
+			addOneWorld: function(model) {
+				$("#world-list").append("<li>这里是来自 <b>" + model.get('name') + "</b> 星球的问候：hello world！</li>");
+			}
+		});
+//实例化AppView
+		var appview = new AppView;
+
+</script>
+
+<!-- 案例2- model
+<div id="test2">man</div>
+<script>
+(function($){
+Man = Backbone.Model.extend({
+url:'/save/',
+initialize:function(){
+alert("Hey, you create me!");
+//初始化时绑定监听事件
+this.bind("change:name",function(){
+var name = this.get('name');
+alert("你改变了name属性为": + name);
+});
+//错误提示
+this.bind("error",function(model,error){
+alert(error);
+})
+},
+defaults:{
+name:'张三',
+age:'38'
+},
+//验证规则
+validate:function(attributes){
+if(attributes.name == ""){
+return "name不能为空"；
+}
+}
+
+aboutMe:function(){
+return '我叫' + this.get('name') + ',今年' + this.get('age') + '岁';
+}
+
+});
+var man = new Man;
+alert(man.get('name'));
+alert(man.aboutMe());
+man.set({mane:'山姆'}); //触发绑定的change事件，
+man.set({mane:''});
+man.save();
+var man1 = new Man;
+man1.fetch({url:'/getmans/'});
+})(jquery);
+</script>
+-->
+<!-- 案例3- collection 
+<script>
+(function($){
+Book = Back.Model.extend({
+default:{
+title:'default'
+},
+initialize:function(){
+alert("Hey,you create me!");
+}
+});
+
+BookShelf = Back.Collection.extend({
+model:Book
+});
+var book1 = new Book({title:'book1'});
+var book2 = new Book({title:'book2'});
+var book2 = new Book({title:'book3'});
+
+var bookShelf = new BookShelf([book1,book2,book3]); //这里用的是数组，也可以用add
+var bookShelf = new BookShelf;
+bookShelf.add(book1);
+bookShelf.add(book2);
+bookShelf.add(book3);
+bookShelf.remove(book3);
+
+/*for(var i=0; i<bookShelf.models.length; i++){
+alert(bookShelf.models[i].get('title'));
+}*/
+
+//基于underscore这个JS库，还可以使用each的方法猎取collection中的数据,
+bookShelf.each(function(book){
+alert(book.get('title'));
+});
+
+
+bookShelf.fetch({'/getbooks/',success:function(collection,response){
+collection.each(function(book){
+alert(book.get('title'));
+});
+},error:function(){
+alert("error");
+}
+});
+
+})(jQuery);
+</script>
+-->
+
+<!--
+<script>
+//backbone model
+Man = Backbone.Model.extend({
+initialize:function(){
+alert("Hey,you create me");
+this.bind('change:name',function(){
+var name = this.get('name');
+alert('你改变了name属性为：' + name);
+});
+this.bind("error",function (model,error){
+alert(error);
+});
+},
+defaults:{
+name:"张三",
+age:'20'
+},
+validate:function(attributes){
+if(attributes.name == ''){
+return 'name不能为空';
+}
+},
+aboutMe:function(){
+return '我叫' + this.get('name') + ',今年' + this.get('age');
+}
+})
+var man = new Man();
+man.initialize();
+alert(man.aboutMe());
+alert(man.get('name'));
+man.set({name:'大棒',age:'20'});
+alert(man.get('name')+man.get('age'));
+man.set({name:''});
+man.save();
+alert(man.validationError); 
+</script>
+-->
+
+<!--
+<script>
+//backbone collection
+Book = Backbone.Model.extend({
+default:{
+title:'张三'
+},
+initialize:function(){
+alert('Hey111!');
+}
+});
+BookShelf = Backbone.Collection.extend({
+model:Book
+});
+var book1 = new Book({title:'book1'});
+var book2 = new Book({title:'book2'});
+var book3 = new Book({title:'book3'});
+//alert(book3.get('title'));
+var bookShelf = new BookShelf();
+bookShelf.add(book1);
+bookShelf.add(book2);
+bookShelf.add(book3);
+alert(bookShelf.models[2].get('title')); //输出单一元素
+bookShelf.remove(book3);
+bookShelf.each(function(book){
+alert(book.get('title')); //遍历出所有元素
+});
+for(var i=0; i<bookShelf.models.length; i++){
+alert(bookShelf.models[i].get('title'));
+}
+</script>
+-->
+
+<!--
+<script>
+//backbone router
+var AppRouter = Backbone.Router.extend({
+routes:{
+"*actions":"defaultRoute"
+},
+defaultRoute:function(actions){
+alert(actions);
+}
+});
+var app_router = new AppRouter();
+Backbone.history.start();
+</script>
+<a href="#actions1">testActions</a>
+-->
+
+<div title="列表" style="color:red" id="list" class="listview"></div> 
+<!--
+<script type="text/javascript"> 
+var ListView = Backbone.View.extend({ 
+tagName : 'div', 
+className : 'listview', 
+id : 'list', 
+attributes : { 
+title : '列表', 
+style : 'color:red' 
+}, 
+render : function() { 
+this.el.innerHTML = 'Hello World!'; 
+document.body.appendChild(this.el); 
+} 
+}); 
+var listview = new ListView(); 
+listview.render(); 
+</script> 
+-->
+<!--
+<script>
+var SearchView = Backbone.View.extend({
+el : '#list',
+initialize: function(){
+//this.render();
+},
+render: function() {
+this.el.innerHTML = 'Hello World!'; 
+//document.body.appendChild(this.el); 
+}
+});
+var searchView = new SearchView();
+searchView.render();
+</script>
+-->
+
+<div id="search_container"></div>
+
+<script type="text/template" id="search_template">
+<label><%= search_label %></label>
+<input type="text" id="search_input" />
+<input type="button" id="search_button" value="Search" />
+</script>
+<script>
+jQuery(document).ready(function(){
+	SearchView = Backbone.View.extend({
+		el:"#search_container",
+		initialize: function(){
+//this.render();
+},
+render: function() {
+//使用underscore这个库，来编译模板
+var template = _.template($("#search_template").html(),{});
+//加载模板到对应的el属性中
+this.el.html(template);
+}
+});
+	var searchView = new SearchView({el: $("#search_container")});
+	searchView.render();
+})
+</script>
+</body>
+</html>
