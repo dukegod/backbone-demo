@@ -1,0 +1,64 @@
+var http = require("http"),
+url = require("url"),
+path = require("path"),
+fs = require("fs");
+
+http.createServer(function(req, res) {
+    console.log( __dirname);
+    console.log(req.url);
+    var pathname = __dirname + url.parse(req.url).pathname;
+    console.log(pathname);
+    console.log(typeof (pathname.charAt(pathname.length - 1)));
+    // if (path.extname(pathname) == "") {
+    //     pathname += " / ";
+    // }
+    if (pathname.charAt(pathname.length - 1) == '/') {
+        pathname += "index.html";
+    }
+
+    fs.exists(pathname,function(exists) {
+        console.log('pathname2' + pathname);
+        if (exists) {
+            switch (path.extname(pathname)) {
+            case".html":
+                res.writeHead(200, {"Content-Type": "text / html"
+                });
+                break;
+            case".js":
+                res.writeHead(200, {"Content-Type": "text / javascript"
+                });
+                break;
+            case".css":
+                res.writeHead(200, {"Content-Type": "text / css"
+                });
+                break;
+            case".gif":
+                res.writeHead(200, {"Content-Type": "image / gif"
+                });
+                break;
+            case".jpg":
+                res.writeHead(200, {"Content-Type": "image / jpeg"
+                });
+                break;
+            case".png":
+                res.writeHead(200, {"Content-Type": "image / png"
+                });
+                break;
+            default:
+                res.writeHead(200, {"Content-Type": "application / octet - stream"
+                });
+            }
+
+            fs.readFile(pathname,function(err, data) {
+                // if (err) console.log(err);
+                res.end(data);
+            });
+        } else {
+            res.writeHead(404, {"Content-Type": "text / paint"});
+            res.end("404 Not Found");
+        }
+    });
+
+}).listen(3000, "localhost");
+
+console.log("Server running 3000");

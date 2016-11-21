@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="name" content="content">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>qwt html</title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+	<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../bower_components/underscore/underscore.js"></script>
+	<script type="text/javascript" src="../bower_components/backbone/backbone.js"></script>
+	<script type="text/javascript" src="../bower_components/backbone/backbone.localStorage.js"></script>
+
+	<script type="text/javascript">
+		var Person = Backbone.Model.extend({
+			initialize: function() {
+				console.log('person initialize data');
+			},
+			defaults: {
+				title: 'lead',
+				name: 'lh',
+				age: ''
+			}
+		})
+
+		var Personlist = Backbone.Collection.extend({
+			model: Person,
+			localStorage: new Backbone.LocalStorage("backbone")
+		});
+		// 添加方式
+
+		// 这么添加的话，做为person对象组存在的
+		var person = new Person([{
+			title: 'staff1',
+			name: 'A',
+			age: 20
+		}, {
+			title: 'staff2',
+			name: 'b',
+			age: 20
+		}, {
+			title: 'staff3',
+			name: 'c',
+			age: 20
+		}, ]);
+		var person2 = new Person({
+			title: 'staff3',
+			name: 'c',
+			age: 20
+		});
+
+		// _.clone 方法
+		var person3 = person2.clone();
+		person3.set('title', 'boss');
+
+		var personlist1 = new Personlist(person);
+		var personlist11 = new Personlist([person, person2]);
+
+		// 添加方式
+		var data = [{
+			title: 'staff111',
+			name: 'Aa',
+			age: 21
+		}, {
+			title: 'staff122',
+			name: 'Aaa',
+			age: 20
+		}, {
+			title: '123',
+			name: '123',
+			age: 20
+		}, {
+			title: 'staff133',
+			name: 'A333',
+			age: 20
+		}, ];
+		var personlist2 = new Personlist(data);
+
+		// 向集合中添加数据
+		// 默认加到末尾
+		personlist2.add({
+			title: 'add',
+			name: 'addadd',
+			age: 8888
+		});
+		// 加到末尾
+		personlist2.push({
+			title: 'push',
+			name: 'push',
+			age: 8888
+		});
+		// 加到头部
+		personlist2.unshift({
+			title: 'unshift',
+			name: 'unshiftunshift',
+			age: 8888
+		});
+
+		// 删除集合中的数据
+		// 移除集合尾部的一个模型对象
+		personlist2.pop()
+			// shift()：移除集合头部的一个模型对象
+		personlist2.shift();
+
+		// 在集合中查找数据
+		// get()：根据模型的唯一标识（id）查找模型对象,从数据库获取，不推荐
+		// at()：查找集合中指定位置的模型对象, model顺序查询（从0开始）
+		// where()：根据数据对集合的模型进行筛选，推荐
+		var i = personlist2.get('A33');
+		console.log(i);
+	</script>
+</body>
+</html>

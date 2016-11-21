@@ -1,6 +1,0 @@
-	var data = [
-		{title: 'staff111', name: 'Aa', age: 21},
-		{title: 'staff122', name: 'Aaa', age: 20},
-		{title: '123', name: '123', age: 20},
-		{title: 'staff133', name: 'A333', age: 20},
-	];
