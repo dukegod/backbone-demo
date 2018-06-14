@@ -1,0 +1,32 @@
+[
+  {
+    "name": "bird1",
+    "age": "12",
+    "dec": "flying",
+    "country": "china"
+  },
+  {
+    "name": "bird2",
+    "age": "12",
+    "dec": "flying",
+    "country": "china"
+  },
+  {
+    "name": "bird3",
+    "age": "12",
+    "dec": "flying",
+    "country": "china"
+  },
+  {
+    "name": "bird4",
+    "age": "12",
+    "dec": "flying",
+    "country": "china"
+  },
+  {
+    "name": "bird5",
+    "age": "12",
+    "dec": "flying",
+    "country": "china"
+  }
+]
